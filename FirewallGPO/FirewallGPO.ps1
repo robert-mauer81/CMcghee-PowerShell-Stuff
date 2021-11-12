@@ -29,3 +29,4 @@ Set-GPPrefRegistryValue -Name "Client Firewall Off Preference" -Action Update -C
 
 Write-Host "You need to restart the Client devices 2 times for the GPO to disable the firewalls"
 
+#This is a change by adding a comment 
