@@ -18,7 +18,7 @@ function Set-CorpComputerState {
     BEGIN {
         switch ($state) {
             'LogOff' { $_action = 0 }
-            'Shutdown' { $_action = 1 }
+            'ShutDown' { $_action = 1 }
             'Restart' { $_action = 2 }
             'PowerOff' { $_action = 8 }
         }
@@ -36,3 +36,4 @@ function Set-CorpComputerState {
         }
     }
 }
+#test this change
