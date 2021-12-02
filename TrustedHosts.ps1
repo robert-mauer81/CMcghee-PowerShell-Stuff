@@ -15,7 +15,7 @@ Clear-Item WSMAN:\localhost\Client\TrustedHosts
 
 #or Using winrm from elevated command prompt
 
-winrm set winrm/config/client @{TrustedHosts="NYC-SRV2"}
+winrm set winrm/config/client @{TrustedHosts="LON-DC1"}
 
 
 Enter-PSSession -ComputerName NYC-SRV2 -credential contoso\admin1
