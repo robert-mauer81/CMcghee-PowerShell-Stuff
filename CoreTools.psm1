@@ -256,3 +256,31 @@ Get-AdatumDiskInfo -ComputerName LON-DC1,LON-SVR1
         } #computers
     } #process
 } #function
+
+<#
+.Synopsis
+   Short description
+.DESCRIPTION
+   Long description
+.EXAMPLE
+   Example of how to use this cmdlet
+.EXAMPLE
+   Another example of how to use this cmdlet
+#>
+function New-Speech {
+    Param
+    (
+        [Parameter(Mandatory = $true, 
+            ValueFromPipeline = $true)]
+        [string]$text
+    )
+
+    #set up .net object for use
+    Add-Type -AssemblyName System.Speech 
+    $synth = New-Object -TypeName System.Speech.Synthesis.SpeechSynthesizer
+    
+    # Write-Host $text
+    $synth.speak($text)
+ 
+}
+
