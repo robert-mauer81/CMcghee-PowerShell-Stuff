@@ -20,9 +20,8 @@ function new-speech {
     Add-Type -AssemblyName System.Speech 
     $synth = New-Object -TypeName System.Speech.Synthesis.SpeechSynthesizer
     
-    Write-Host $text
+   # Write-Host $text
     $synth.speak($text)
  
 }
 
-new-speech -text "This is a test"
