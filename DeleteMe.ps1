@@ -1,0 +1,2 @@
+Get-aduser -filter *
+#test
