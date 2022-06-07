@@ -19,9 +19,11 @@ function new-speech {
     #set up .net object for use
     Add-Type -AssemblyName System.Speech 
     $synth = New-Object -TypeName System.Speech.Synthesis.SpeechSynthesizer
-    
+    $synth.GetInstalledVoices().Voiceinfo
+    $synth.SelectVoice('Microsoft Zira Desktop')
    # Write-Host $text
     $synth.speak($text)
  
 }
 
+new-speech 'Hello My name is Zira'
