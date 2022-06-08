@@ -29,7 +29,7 @@ Function Get-Compinfo {
 
             $obj.PSObject.TypeNames.Insert(0, "MyInventory")
 
-            $FormatEnumerationLimit = -1
+            #$FormatEnumerationLimit = -1
             Write-Output $obj 
             $obj | Select-Object -Property computername, os, LastBootUp, UptimeHours, C:_GB_Free | Export-Csv -Path C:\Test.csv -NoTypeInformation -Append
         }
