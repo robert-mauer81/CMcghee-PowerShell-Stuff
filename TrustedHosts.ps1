@@ -7,11 +7,11 @@ $PSVersionTable
 
 
 
-Set-Item WSMAN:\localhost\Client\TrustedHosts -Value NYC-SRV2
+#Set-Item WSMAN:\localhost\Client\TrustedHosts -Value NYC-SRV2
 
-Get-Item WSMAN:\localhost\Client\TrustedHosts
+#Get-Item WSMAN:\localhost\Client\TrustedHosts
 
-Clear-Item WSMAN:\localhost\Client\TrustedHosts
+#Clear-Item WSMAN:\localhost\Client\TrustedHosts
 
 #or Using winrm from elevated command prompt
 
