@@ -6,6 +6,8 @@
 
 $DomainController = '<dc servername>'
 $DomainCredential = '<admin username>'
+$adminpassword = ConvertTo-SecureString "Pa55w.rd" -AsPlainText -Force
+$dscred = New-object System.Management.Automation.PSCredential -ArgumentList ($DomainCredential, $adminpassword)
 $ComputerName = '<remote computer>'
 $localcredential = '<localuseronremotecomputer>'
 $password = ConvertTo-SecureString "<remoteuserpassword>" -AsPlainText -Force
@@ -15,7 +17,7 @@ $pscred1 = New-object System.Management.Automation.PSCredential -ArgumentList ($
 #Parameter block / hash table to pass arguments to remote PS command Test-ComputerSecureChannel
 $testcomputersecurechannelParams = @{
     'Server'     = $DomainController
-    'Credential' = $DomainCredential
+    'Credential' = $dscred
     'Repair'     = $true
     'Verbose'    = $true
 }
