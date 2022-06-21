@@ -5,8 +5,8 @@
 #Clear-Item WSMAN:\localhost\Client\TrustedHosts
 
 $DomainController = '<dc servername>'
-$DomainCredential = '<admin username>'
-$adminpassword = ConvertTo-SecureString "Pa55w.rd" -AsPlainText -Force
+$DomainCredential = '<domain>\Administrator'
+$adminpassword = ConvertTo-SecureString "<domain admin password>" -AsPlainText -Force
 $dscred = New-object System.Management.Automation.PSCredential -ArgumentList ($DomainCredential, $adminpassword)
 $ComputerName = '<remote computer>'
 $localcredential = '<localuseronremotecomputer>'
