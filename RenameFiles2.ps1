@@ -1,0 +1,1 @@
+get-childitem -Path E:\Mod06\Democode\ -File |  Rename-Item -NewName { $psitem.Name -replace ".txt", ".ps1" }
