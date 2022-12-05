@@ -1,1 +1,1 @@
-Get-aduser -filter *
+Get-aduser -filter * -properties * | Select-Object -Property Name
