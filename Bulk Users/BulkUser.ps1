@@ -1,7 +1,7 @@
 #Chris Mcghee chrs.mcghee@gmail.com 3-27-2020
 #Store the data from ADUsers.csv in the $ADUsers array
 TRY {
-    $ADUsers = Import-csv D:\Bulkusers\bulk_user.csv
+    $ADUsers = Import-csv D:\Bulkusers\bulk_users1.csv
 }
 CATCH [System.IO.DirectoryNotFoundException] {
     Write-Host " You fat fingered the directory"
