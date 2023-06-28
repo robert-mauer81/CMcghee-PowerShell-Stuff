@@ -11,7 +11,7 @@ CATCH [System.IO.FileNotFoundException] {
 }
 
 
-$error[1].Exception.GetType().FullName
+#$error[1].Exception.GetType().FullName
 
 
 
