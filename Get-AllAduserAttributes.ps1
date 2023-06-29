@@ -15,11 +15,11 @@ While ($Loop) {
 # Loop through all the classes and get all auxiliary class attributes and direct attributes
 $ClassArray | ForEach-Object {
     # Get Auxiliary class attributes
-    $Aux = $_.AuxiliaryClass | % { Get-ADObject -SearchBase (Get-ADRootDSE).SchemaNamingContext -Filter { ldapDisplayName -like $_ } -Properties mayContain, mustContain, systemMayContain, systemMustContain } |
+    $Aux = $_.AuxiliaryClass | Where-Object { Get-ADObject -SearchBase (Get-ADRootDSE).SchemaNamingContext -Filter { ldapDisplayName -like $_ } -Properties mayContain, mustContain, systemMayContain, systemMustContain } |
     Select-Object @{n = "Attributes"; e = { $_.mayContain + $_.mustContain + $_.systemMaycontain + $_.systemMustContain } } |
     Select-Object -ExpandProperty Attributes
     # Get SystemAuxiliary class attributes
-    $SysAux = $_.SystemAuxiliaryClass | % { Get-ADObject -SearchBase (Get-ADRootDSE).SchemaNamingContext -Filter { ldapDisplayName -like $_ } -Properties MayContain, SystemMayContain, systemMustContain } |
+    $SysAux = $_.SystemAuxiliaryClass | Where-Object { Get-ADObject -SearchBase (Get-ADRootDSE).SchemaNamingContext -Filter { ldapDisplayName -like $_ } -Properties MayContain, SystemMayContain, systemMustContain } |
     Select-Object @{n = "Attributes"; e = { $_.maycontain + $_.systemmaycontain + $_.systemMustContain } } |
     Select-Object -ExpandProperty Attributes
     # Get direct attributes
