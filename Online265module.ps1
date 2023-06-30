@@ -1,5 +1,5 @@
 install-Module AzureAD -force
-Connect-AzureAD
+Connect-AzureAccount
 
 install-Module MsOnline -force
 Connect-MsolService
