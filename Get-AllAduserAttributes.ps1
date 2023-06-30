@@ -1,3 +1,12 @@
+<#
+.SYNOPSIS
+Get-Aduser -filter* -properties *| Get-member does not return every possible attribute of an ADuser object. You need to take parent classes and supplemental classes into account.
+Plus you need to look at four different class attributes for each class definition associated with the class.
+.DESCRIPTION
+This command will retrieve all possible ADUser properties
+.LINK
+https://www.easy365manager.com/how-to-get-all-active-directory-user-object-attributes/
+#>
 Import-Module ActiveDirectory
 $Loop = $True
 $ClassName = "User"
@@ -25,4 +34,4 @@ $ClassArray | ForEach-Object {
     # Get direct attributes
     $UserAttributes += $Aux + $SysAux + $_.mayContain + $_.mustContain + $_.systemMayContain + $_.systemMustContain
 }
-$UserAttributes | Sort-Object | Get-Unique
+$UserAttributes | Sort-Object | Get-Unique 
