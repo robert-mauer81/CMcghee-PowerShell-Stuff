@@ -14,7 +14,7 @@ New-AzureADUser -DisplayName "Donald Watson" -UserPrincipalName Donald@$verified
     -AccountEnabled $true -PasswordProfile $PasswordProfile -MailNickName Donald
 
 $user = Get-AzureADUser -ObjectID Donald@$verifiedDomain
-$role = Get-AzureADDirectoryRole | Where { $_.displayName -eq 'Global Administrator' }
+$role = Get-AzureADDirectoryRole | Where-object { $_.displayName -eq 'Global Administrator' }
 Add-AzureADDirectoryRoleMember -ObjectId $role.ObjectId -RefObjectId $user.ObjectID
 Get-AzureADDirectoryRoleMember -ObjectId $role.ObjectId
 
@@ -44,6 +44,6 @@ Connect-MicrosoftTeams
 Get-team
 New-Team -DisplayName "PowerShell Team" -MailNickName "PSTeam"
 $team = Get-Team -DisplayName "PowerShell Team"
-$team | FL
+$team | Format-List
 
 Add-TeamUser -GroupId $team.GroupId -User Donald@M365x56210031.onmicrosoft.com -Role Member
