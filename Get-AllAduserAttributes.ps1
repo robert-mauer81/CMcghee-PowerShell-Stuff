@@ -1,3 +1,4 @@
+Get-AllADUserproperties{
 <#
 .SYNOPSIS
 Get-Aduser -filter* -properties *| Get-member does not return every possible attribute of an ADuser object. You need to take parent classes and supplemental classes into account.
@@ -35,3 +36,4 @@ $ClassArray | ForEach-Object {
     $UserAttributes += $Aux + $SysAux + $_.mayContain + $_.mustContain + $_.systemMayContain + $_.systemMustContain
 }
 $UserAttributes | Sort-Object | Get-Unique 
+}
