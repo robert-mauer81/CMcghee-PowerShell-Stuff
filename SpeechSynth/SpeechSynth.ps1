@@ -26,4 +26,5 @@ function new-speech {
  
 }
 
+#Test function
 #new-speech 'Hello My name is Zira'
