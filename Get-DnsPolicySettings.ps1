@@ -73,8 +73,8 @@ ForEach($Server in $DNSServers){
     }
 }
 # Configure E-Mail Settings #
-$Recipient = "joeblogs"
-$CC = "joeblogs"
+$Recipient = "Christian"
+$CC = 
 $Sender = "DNSPolicyAlerts@contoso.com"
 $SMTP = "exch001.contoso.com"
 $Subject = "Daily DNS Policy Config Report for $Date"
@@ -88,7 +88,7 @@ PLEASE DO NOT REPLY TO THIS EMAIL.
  
 Regards,
 EUC Engineering')
-Send-MailMessage -To callan.hallspalmer@cliffordchance.com <#$Recipient -Cc $CC#> -From $Sender -Subject $Subject -Body $Body -Attachments $Attachment -SmtpServer $SMTP
+Send-MailMessage -To christian.mcghee@unitedtraining.com<#$Recipient -Cc $CC#> -From $Sender -Subject $Subject -Body $Body -Attachments $Attachment -SmtpServer $SMTP
 # Reset ErrorActionPreference #
 $ErrorActionPreference = $oldErrorActionPreference
 # END #
