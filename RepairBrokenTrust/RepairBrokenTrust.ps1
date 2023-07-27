@@ -1,6 +1,6 @@
 #Modify local TrustedHosts
 
-#Set-Item WSMAN:\localhost\Client\TrustedHosts -Value <remote hostname>
+Set-Item WSMAN:\localhost\Client\TrustedHosts -Value <remote hostname>
 #Get-Item WSMAN:\localhost\Client\TrustedHosts
 #Clear-Item WSMAN:\localhost\Client\TrustedHosts
 

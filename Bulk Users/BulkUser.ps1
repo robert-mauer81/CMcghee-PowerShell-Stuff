@@ -1,7 +1,7 @@
 #Chris Mcghee chrs.mcghee@gmail.com 3-27-2020
 #Store the data from ADUsers.csv in the $ADUsers array
 TRY {
-    $ADUsers = Import-csv D:\Bulkusers\bulk_user.csv
+    $ADUsers = Import-csv c:\Bulkusers\bulk_use.csv
 }
 CATCH [System.IO.DirectoryNotFoundException] {
     Write-Host " You fat fingered the directory"
@@ -11,7 +11,7 @@ CATCH [System.IO.FileNotFoundException] {
 }
 
 
-$error[1].Exception.GetType().FullName
+#$error[1].Exception.GetType().FullName
 
 
 
