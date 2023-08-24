@@ -1,0 +1,47 @@
+  Task 1: Use string variables
+1.     On LON-CL1, open a Windows PowerShell prompt.
+2.     Create a variable $logPath that contains C:\logs\.
+3.     For $logPath, identify the type of variable and the available properties and methods.
+4.     Create a variable $logFile that contains log.txt.
+5.     Update $logPath to include the contents of $logFile.
+6.     Update the path stored in $logPath to use drive D instead of drive C.
+7.     Leave the Windows PowerShell prompt open for the next task.
+ 
+  Task 2: Use DateTime variables
+1.     At the Windows PowerShell prompt, create a variable $today that contains today’s date.
+2.     For $today, identify the type of variable and the available properties and methods.
+3.     Use the properties of $today to create a string in the format Year-Month-Day-Hour-Minute.txt, and store the value in $logFile.
+4.     Create a variable $cutOffDay that is 30 days before today.
+5.     Use Get-ADUser to query user accounts that have signed in since $cutOffDay. Filter by using the LastLogonDate property.
+6.     Leave the Windows PowerShell prompt open for the next exercise.
+  Task 3: Use an array to update the department for users
+1.     Query all Active Directory Domain Services (AD DS) users in the Marketing department and place them in a variable named $mktgUsers. Include the Department property in the results.
+2.     Use $mktgUsers to identify the number of users in the Marketing department.
+3.     Display the first user in $mktgUsers and verify that the Department property is listed.
+4.     Pipe the users in $mktgUsers to Set-ADUser and update the department to Business Development.
+5.     View the Department attribute in $mktgUsers to see if it has been updated.
+6.     Query all AD DS users in the Marketing department to verify that there are none.
+7.     Query all AD DS users in the Business Development department and verify that it matches the previous count from the Marketing department.
+8.     Leave the Windows PowerShell prompt open for the next task.
+ 
+  Task 4: Use an arraylist
+1.     Create an arraylist named $computers with the values LON-SRV1,LON-SRV2, and LON-DC1.
+2.     Verify that $computers does not have a fixed size.
+3.     Add LON-DC2 to $computers.
+4.     Remove LON-SRV2 from $computers.
+5.     Display the contents of $computers.
+6.     Leave the Windows PowerShell prompt open for the next exercise.
+  Task 5: Use a hash table
+1.     Create a hash table named $mailList with the following users and email addresses:
+o    Frank - Frank@fabrikam.com
+o    Libby - LHayward@contoso.com
+o    Matej - MStojanov@tailspintoys.com
+2.     Display the contents of $mailList.
+3.     Display the email address for Libby.
+4.     Update the email address for Libby to Libby.Hayward@contoso.com. 
+5.     Add a new email address for Stela: Stela.Sahiti@treyresearch.net.
+6.     View the count of items in $mailList.
+7.     Remove Frank from $mailList.
+8.     Verify that Frank is removed.
+9.     Close the Windows PowerShell prompt.
+
