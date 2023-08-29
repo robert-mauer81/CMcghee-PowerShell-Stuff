@@ -1,14 +1,15 @@
 $cred = Get-Credential
-$MyVM = TestVM1
-$RGName = VMRG0829
+[string]$MyVM = TestVM1
+[string]$RGName = VMRG0829
+[string]$Location = EastUs
 
 #Create Resource Group for VM
-New-AzResourceGroup -ResourceGroupName $RGName -Location "EastUs"
+New-AzResourceGroup -ResourceGroupName $RGName -Location $location
 
 $vmParams = @{
-    ResourceGroupName = 'myResourceGroup'
+    ResourceGroupName = $RGName
     Name = $MyVm
-    Location = 'eastus'
+    Location = $Location
     ImageName = 'Win2016Datacenter'
     PublicIpAddressName = 'TestPublicIp'
     Credential = $cred
@@ -22,7 +23,7 @@ $vmParams = @{
    mstsc /v:<publicIpAddress>
 
    #Change size
-   Get-AzVMSize -Location "EastUS"
+   Get-AzVMSize -Location $Location
    Get-AzVMSize -ResourceGroupName $RGName -VMName $MyVM
 
    $vm = Get-AzVM -ResourceGroupName $RGName -VMName $MyVM
