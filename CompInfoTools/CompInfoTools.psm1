@@ -12,14 +12,14 @@ Function Get-Compinfo {
             $os = Get-CimInstance -ClassName Win32_operatingsystem -ComputerName $Computer -ErrorAction SilentlyContinue
 
             #$now = (Get-Date)
-            $boot = $os.LastBootUpTime 
+            
             $uptime = $os.LocalDateTime - $os.LastBootUpTime 
         
             $cdrive = Get-WMIObject win32_logicaldisk -filter "DeviceID='c:'" -computername $Computer -ErrorAction SilentlyContinue
 
             $Properties = [ordered]@{'Computername' = $Computer;
                 'OS'                                = $os.Caption;
-                'LastBootUp'                        = $boot;
+                'LastBootUp'                        = $os.LastBootUpTime;
                 'UpTimeHours'                       = $uptime;
                 'C:_GB_Free'                        = ($cdrive.FreeSpace / 1GB -as [int])
             }
