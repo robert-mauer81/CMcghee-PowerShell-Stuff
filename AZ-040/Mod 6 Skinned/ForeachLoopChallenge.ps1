@@ -37,7 +37,7 @@ Get-Aduser -Filter { Name -eq "Annie Conner" } -Properties Department | Set-adus
 
 #Task 5 Get Only Disabled users in Marketing OU whose Department is Marketing and NOT IT and populate an array $users.
 #Create a foreach loop to display the user name property in a list.
-Get-aduser -filter { Department -eq 'Marketing' } -SearchBase "OU=Marketing,DC=Adatum,DC=com" -Properties enabled | Where -FilterScript { $_.enabled -eq $False }
+Get-aduser -filter { Department -eq 'Marketing' } -SearchBase "OU=Marketing,DC=Adatum,DC=com" -Properties enabled | Where-Object -FilterScript { $_.enabled -eq $False }
 #OR
 Get-aduser -filter { Department -eq 'Marketing' -and Enabled -eq $false } -SearchBase "OU=Marketing,DC=Adatum,DC=com" -Properties Department
 
