@@ -1,17 +1,18 @@
-#Task 1
+#Task 1 Create an array and  foreach loops to display and multiply numbers
 #Create an array $numbers and use write-host to display each number in the loop
 $numbers = 1, 2, 3, 4, 5, 6
 
 ForEach ($num in $numbers) {
     Write-Host $num
 }
+
 #Modify the loop to multiply each number by 6
 $numbers = 1, 2, 3, 4, 5, 6
 ForEach ($num in $numbers) {
     Write-Host ($num * 6)
 }
 
-#Task 2
+#Task 2 Create an array of files and a foreach loop to display file names in a list
 #Create an array $files that contains the files in E:\Mod07\Labfiles
 $files = Get-childitem E:\Mod07\Labfiles
 
@@ -21,11 +22,12 @@ ForEach ($file in $files) {
 }
 
 
-#Task 3
-#Create new OU
+#Task 3 Create new OU an OU named Disabled Users
 New-ADOrganizationalUnit -Name 'Disabled Users' -Path "DC=Adatum,DC=com"
 
-#Task 4
+#Task 4 Create PowerShell statements to retreive user names that start with the letter "A" and disable them.
+# Write an additionalstatment to modify department property of Annie Conner to IT department
+
 #Get users in Marketing OU whose name starts with the letter "A
 Get-aduser -Filter { Name -like "A*" } -SearchBase "OU=Marketing,DC=Adatum,DC=com" 
 #Disable those accounts
@@ -33,9 +35,9 @@ Get-aduser -Filter { Name -like "A*" } -SearchBase "OU=Marketing,DC=Adatum,DC=co
 #Find Annie Conner account and change her department to IT 
 Get-Aduser -Filter { Name -eq "Annie Conner" } -Properties Department | Set-aduser -Department "IT"
 
-#Task 5
-#Get Only Disabled users in Marketing OU whose Department is Marketing NOT IT
-Get-aduser -filter { Department -eq 'Marketing' } -SearchBase "OU=Marketing,DC=Adatum,DC=com" -Properties enabled | Where-Object -FilterScript { $_.enabled -eq $False }
+#Task 5 Get Only Disabled users in Marketing OU whose Department is Marketing and NOT IT and populate an array $users.
+#Create a foreach loop to display the user name property in a list.
+Get-aduser -filter { Department -eq 'Marketing' } -SearchBase "OU=Marketing,DC=Adatum,DC=com" -Properties enabled | Where -FilterScript { $_.enabled -eq $False }
 #OR
 Get-aduser -filter { Department -eq 'Marketing' -and Enabled -eq $false } -SearchBase "OU=Marketing,DC=Adatum,DC=com" -Properties Department
 
@@ -48,8 +50,7 @@ ForEach ($user in $users) {
     IF ($user.enabled -eq $False) 
     { Write-host $user.Name }
 }
-#Task 6
-#Modify foreach loop to send name and department properties to csv file named disabled Marketing users with NoTypeInformation in header row
+#Task 6 Modify foreach loop to send name and department properties to csv file named disabled Marketing users with NoTypeInformation in header row
 
 $users = Get-aduser -filter { Department -eq 'Marketing' -and Enabled -eq $false } -SearchBase "OU=Marketing,DC=Adatum,DC=com" -Properties Department
 
@@ -58,18 +59,16 @@ ForEach ($user in $users) {
     { $user | Select-object -Property Name, Department | export-csv C:\disableusers.csv -Append -NoTypeInformation }
 }
 
-#Task 7
-# Modify foreach to Move disabled users to OU "Disabled Users".
+#Task 7  Modify foreach to Move disabled users to OU "Disabled Users".
 ForEach ($user in $users) {
     IF ($user.enabled -eq $False) {
         $user | Move-ADObject -TargetPath "OU=Disabled Users,DC=Adatum,DC=com" 
     }
 }
-#Task 8
+#Task 8 Move the users back to the Marketing OU for testing purposes.
 Get-Aduser -filter * -searchbase "OU=Disabled Users,DC=Adatum,DC=com" | Move-ADObject -TargetPath "OU=Marketing,DC=Adatum,DC=com"
 
-#Task 9
-#Modify foreach by adding  write-host statements to indicate each user that is getting moved during the loop
+#Task 9 Modify foreach by adding  write-host statements to indicate each user that is getting moved during the loop
 ForEach ($user in $users) {
     IF ($user.enabled -eq $False) {
         Write-Host "Moving " -NoNewline
@@ -79,3 +78,13 @@ ForEach ($user in $users) {
     }
 }
 
+#OR
+$users = Get-aduser -filter { Department -eq 'Marketing' -and Enabled -eq $false } -SearchBase "OU=Marketing,DC=Adatum,DC=com" -Properties Department
+
+
+ForEach ($user in $users) {
+    IF ($user.enabled -eq $False) {
+        Write-Host "Moving $($user.Name) to Disabled Users OU" 
+        $user | Move-ADObject -TargetPath "OU=Disabled Users,DC=Adatum,DC=com" 
+    }
+}
