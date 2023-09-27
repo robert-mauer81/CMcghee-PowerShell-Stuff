@@ -1,4 +1,3 @@
-
 $PSVersionTable.PSVersion
 Set-Executionpolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 Install-Module -Name PowerShellGet -Force
@@ -6,16 +5,32 @@ install-module -Name AZ -force
 
 #similiar
 Install-Module MSOnline -force
+Update-Module MSOnline
 #Azure Active Directory PowerShell for Graph
 Install-Module AzureAD -Force
+Update-Module AzureAD
+
 
 #Connececting
 Connect-MsolService
-#Connect-AzureAD 
-Connect-AzAccount
+connect-Msonline
 
-#Subscrition info and Resource group info
+Connect-AzureAD 
+#Connect-AzAccount
+
+#Subscription info and Resource group info
 Get-AzSubscription
 Get-AzResourceGroup
 
-get-command -Module Az
+Install-Module ExchangeOnlineManagement
+UpDate-Module ExchangeOnlineManagement
+
+Connect-ExchangeOnline
+
+Install-Module -Name Microsoft.Online.SharePoint.PowerShell
+Update-Module -Name Microsoft.Online.SharePoint.PowerShell
+Connect-SPOService -Url https://M365x67585250-admin.sharepoint.com
+
+Install-Module MicrosoftTeams
+
+Connect-MicrosoftTeams
