@@ -1,8 +1,8 @@
 #The below command lists all users who never logged on.
-Get-ADUser -Filter { (lastlogontimestamp -notlike "*") } | Select Name, DistinguishedName
+Get-ADUser -Filter { (lastlogontimestamp -notlike "*") } | Select-Object Name, DistinguishedName
 
 #If you want to list only enabled ad users, you can add one more check in the above filter.
-Get-ADUser -Filter { (lastlogontimestamp -notlike "*") -and (enabled -eq $true) } | Select Name, DistinguishedName
+Get-ADUser -Filter { (lastlogontimestamp -notlike "*") -and (enabled -eq $true) } | Select-Object Name, DistinguishedName
 
 #If you are familiar with LDAP filter you can also find never logged in users by using ldap filter.
 
