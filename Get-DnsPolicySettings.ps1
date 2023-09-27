@@ -1,7 +1,7 @@
 ##########################################################################################################################################
 #### Script:      Get-DNSPolSettings.ps1                                      
                                                 
-#### Description: This script will pull a config report of all DNS policies configured for internal.cliffordchance.net
+#### Description: This script will pull a config report of all DNS policies configured 
 
 ###########################################################################################################################################
 # Global Variables #
@@ -88,8 +88,7 @@ PLEASE DO NOT REPLY TO THIS EMAIL.
  
 Regards,
 EUC Engineering')
-Send-MailMessage -To christian.mcghee@unitedtraining.com<#$Recipient -Cc $CC#> -From $Sender -Subject $Subject -Body $Body -Attachments $Attachment -SmtpServer $SMTP
+Send-MailMessage -To christian.mcghee@unitedtraining.com -From $Sender -Subject $Subject -Body $Body -Attachments $Attachment -SmtpServer $SMTP
 # Reset ErrorActionPreference #
 $ErrorActionPreference = $oldErrorActionPreference
 # END #
-The
