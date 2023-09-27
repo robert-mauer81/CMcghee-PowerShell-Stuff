@@ -50,6 +50,18 @@ ForEach ($user in $users) {
     IF ($user.enabled -eq $False) 
     { Write-host $user.Name }
 }
+
+#OR filter in your foreach logic instead of the array
+$users = Get-aduser -filter * -SearchBase "OU=Marketing,DC=Adatum,DC=com" -Properties Department
+
+
+ForEach ($user in $users) {
+    IF ($user.enabled -eq $False -and $user.Department -eq 'Marketing') 
+    { $user | Select-object -Property Name, Department | export-csv C:\disableusers.csv -Append -NoTypeInformation }
+} 
+
+
+
 #Task 6 Modify foreach loop to send name and department properties to csv file named disabled Marketing users with NoTypeInformation in header row
 
 $users = Get-aduser -filter { Department -eq 'Marketing' -and Enabled -eq $false } -SearchBase "OU=Marketing,DC=Adatum,DC=com" -Properties Department
@@ -59,8 +71,7 @@ ForEach ($user in $users) {
     { $user | Select-object -Property Name, Department | export-csv C:\disableusers.csv -Append -NoTypeInformation }
 }
 
-
-#OR Create an PSOject and export
+#OR Create an PSOject and export -Advanced topic
 
 ForEach ($user in $users) {
     IF ($user.enabled -eq $False) {
@@ -70,12 +81,11 @@ ForEach ($user in $users) {
         }
         
         $obj = New-Object -TypeName PSObject -Property $properties
-        $obj.PSObject.TypeNames.Insert(0, "DisabledUser")               #Gives the PSObject a type - view with Get-Member
+        $obj.PSObject.TypeNames.Insert(0, "DisabledUser")
         Write-Output $obj
         $obj | Select-Object -Property Name, Department | Export-Csv -Path C:\DisabledUsers.csv -NoTypeInformation -Append
     }
 }
-
 
 #Task 7  Modify foreach to Move disabled users to OU "Disabled Users".
 ForEach ($user in $users) {
@@ -83,6 +93,10 @@ ForEach ($user in $users) {
         $user | Move-ADObject -TargetPath "OU=Disabled Users,DC=Adatum,DC=com" 
     }
 }
+
+# check if they moved
+Get-aduser -Filter * -SearchBase "OU=Disabled Users,DC=Adatum,DC=com" 
+
 #Task 8 Move the users back to the Marketing OU for testing purposes.
 Get-Aduser -filter * -searchbase "OU=Disabled Users,DC=Adatum,DC=com" | Move-ADObject -TargetPath "OU=Marketing,DC=Adatum,DC=com"
 
