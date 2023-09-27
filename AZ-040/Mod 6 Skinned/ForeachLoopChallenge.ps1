@@ -59,6 +59,24 @@ ForEach ($user in $users) {
     { $user | Select-object -Property Name, Department | export-csv C:\disableusers.csv -Append -NoTypeInformation }
 }
 
+
+#OR Create an PSOject and export
+
+ForEach ($user in $users) {
+    IF ($user.enabled -eq $False) {
+        $properties = @{
+            'Name'       = $user.Name;
+            'Department' = $user.Department        
+        }
+        
+        $obj = New-Object -TypeName PSObject -Property $properties
+        $obj.PSObject.TypeNames.Insert(0, "DisabledUser")               #Gives the PSObject a type - view with Get-Member
+        Write-Output $obj
+        $obj | Select-Object -Property Name, Department | Export-Csv -Path C:\DisabledUsers.csv -NoTypeInformation -Append
+    }
+}
+
+
 #Task 7  Modify foreach to Move disabled users to OU "Disabled Users".
 ForEach ($user in $users) {
     IF ($user.enabled -eq $False) {

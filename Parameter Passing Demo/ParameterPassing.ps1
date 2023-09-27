@@ -16,7 +16,7 @@ Invoke-Command -ComputerName LON-DC1 -ScriptBlock{Param($A,$B) Get-eventlog -log
 
 
 
-#No Bueno with more than one param
+# With more than one param
     $logname = 'System'
     $newest = 5
     Invoke-Command -ComputerName LON-DC1 -ScriptBlock {Get-Eventlog -LogName $Using:logname, $using:newest}
