@@ -1,4 +1,4 @@
-Write-Host "Enter the name of the remote computer   " -ForegroundColor Yellow -BackgroundColor DarkMagenta -NoNewline
+Write-Host "Enter the name of the remote computer to enable PS Remoting  " -ForegroundColor Yellow -BackgroundColor DarkMagenta -NoNewline
 $Computername = Read-Host 
 
 $SessionArgs = @{
