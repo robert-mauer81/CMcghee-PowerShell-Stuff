@@ -38,61 +38,7 @@ function Set-CorpComputerState {
     }
 }
 #This is an edit from the web
-Function Get-AdatumOSInfo {
-    <#
-.SYNOPSIS
-Retreives operating system, BIOS, and computer information from one or
-more computers.
-.DESCRIPTION
-This command retrieves specific information from each computer. The
-command uses CIM, so it will only work with computers where Windows
-Remote Management (WinRM) has been enabled and Windows Management
-Framework (WMF) 3.0 or later is installed.
-.PARAMETER ComputerName
-One or more computer names, as strings. IP addresses are not accepted.
-You should only use canonical names from Active Directory. This
-parameter accepts pipeline input. Computer names must be in the form
-LON-XXYY, where "XX" can be a 2- or 3-character designation, and 
-"YY" can be 1 or 2 digits.
-.EXAMPLE
- Get-Content names.txt | Get-AdatumOSInfo
-This example assumes that names.txt includes one computer name per
-line, and will retrieve information from each computer listed.
-.EXAMPLE
- Get-AdatumOSInfo -ComputerName LON-DC1
-This example retrieves information from one computer.
-#>
-    [CmdletBinding()]
-    Param(
-        [Parameter(Mandatory = $True,
-            ValueFromPipeline = $True,
-            ValueFromPipelineByPropertyName = $True,
-            HelpMessage = 'One or more computer names')]
-        [Alias('HostName')]
-        [ValidatePattern('LON-\w{2,3}\d{1,2}')]
-        [string[]]$ComputerName
-    )
 
-    PROCESS {
-        foreach ($computer in $ComputerName) {
-            Write-Verbose "Connecting to $computer"
-            $os = Get-CimInstance -ComputerName $computer -ClassName Win32_OperatingSystem
-            $compsys = Get-CimInstance -ComputerName $computer -ClassName Win32_ComputerSystem
-            $bios = Get-CimInstance -ComputerName $computer -ClassName Win32_BIOS
-
-            $properties = @{'ComputerName' = $computer;
-                'OSVersion'                = $os.caption;
-                'SPVersion'                = $os.servicepackmajorversion;
-                'BIOSSerial'               = $bios.serialnumber;
-                'Manufacturer'             = $compsys.manufacturer;
-                'Model'                    = $compsys.model
-            }
-            $output = New-Object -TypeName PSObject -Property $properties
-            Write-Output $output
-        }
-    }
-
-}
 
 Function Set-AdatumServicePassword {
     <#
@@ -130,7 +76,7 @@ line, and will set the password for the BITS server on each computer listed.
 
         [Parameter(Mandatory = $True,
             HelpMessage = 'New password')]
-        [string]$NewPassword
+        [securestring]$NewPassword
     )
 
     PROCESS {
@@ -157,20 +103,28 @@ function Get-AdatumStyleSheet {
     @"
 <style>
 body {
-    font-family:Segoe,Tahoma,Arial,Helvetica;
+    font-family:Georgia,Monaco,Arial,Sans-Serif;
     font-size:10pt;
-    color:#333;
-    background-color:#eee;
+    color:Blue;
+    background-color:Linen;
     margin:10px;
 }
 th {
     font-weight:bold;
+    font-size:10pt;
     color:white;
-    background-color:#333;
+    background-color:Grey;
 }
+td {
+     font-weight:bold;
+     font-size:10pt;
+    color:Black;
+    background-color:Linen;
+    }
 </style>
 "@
 }
+
 
 function Get-AdatumNetAdapterInfo {
     <#
@@ -207,7 +161,8 @@ Get-AdatumNetAdapterInfo -ComputerName LON-DC1,LON-SVR1
                     'AdapterName'              = $adapter.Name;
                     'InterfaceIndex'           = $adapter.InterfaceIndex;
                     'IPAddress'                = $address.IPAddress;
-                    'AddressFamily'            = $address.AddressFamily
+                    'AddressFamily'            = $address.AddressFamily;
+                    'MACaddress'               = $adapter.macaddress
                 }
                 $output = new-object -TypeName PSObject -Property $properties
                 Write-Output $output

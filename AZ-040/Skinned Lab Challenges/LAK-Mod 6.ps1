@@ -6,9 +6,11 @@ $logPath = "C:\Logs\"
 #identify properties and methods
 		$logPath | Get-Member
 #Creat secon variable
-		$logFile = "log.txt"
+$logFile = "log.txt"
 #Update contents
 		$logPath += $logFile
+#or
+		$logpath = Join-Path $logPath -ChildPath $logFile		
 		$logPath
 #Replace C with D and Update
 		$logPath.Replace("C:","D:")
@@ -23,6 +25,8 @@ $logPath = "C:\Logs\"
 		$today | Get-Member
 #Use $Today tp creat a string
 		$logFile = [string]$today.Year + "-" + $today.Month + "-" + $today.Day + "-" + $today.Hour + "-" + $today.Minute + ".txt"
+		#or credit Room 2 :
+		$logfile = '{0}-{1}-{2}-{3}-{4}.txt' -f $today.Year , $today.Month , $today.Day ,$today.Hour ,$today.Minute
 #Create a variable -30 days
 		$cutOffDate = $today.AddDays(-30)
 #Use Variable in Filter
@@ -37,6 +41,8 @@ $mktgUsers = Get-ADUser -Filter {Department -eq "Marketing"} -Properties Departm
 		$mktgUsers[0]
 #Cahnge the users department in the array to Business Development
 		$mktgUsers | Set-ADUser -Department "Business Development"
+#or written another way 
+		$mktgUsers | ForEach-Object {set-aduser $_ -Department "Business Development"} 	
 # View the update
 		$mktgUsers | Format-Table Name,Department
 #Verify ther are no more users with the Marketing value for Department

@@ -1,7 +1,7 @@
 #Chris Mcghee chrs.mcghee@gmail.com 3-27-2020
 #Store the data from ADUsers.csv in the $ADUsers array
 TRY {
-    $ADUsers = Import-csv D:\Bulkusers\bulk_users1.csv 
+    $ADUsers = Import-csv D:\Bulkus\bulk_users1.csv -ErrorAction Stop
 }
 CATCH [System.IO.DirectoryNotFoundException] {
     Write-Host " You fat fingered the directory"
@@ -12,6 +12,7 @@ CATCH [System.IO.FileNotFoundException] {
 
 
 #$error[1].Exception.GetType().FullName
+#$error.Count
 
 
 
@@ -20,7 +21,7 @@ foreach ($User in $ADUsers) {
     #Read user data from each field in each row and assign the data to a variable as below
     [string]$DisplayName = $user.firstname + " " + $User.Lastname
     [string]$UPN = $User.Firstname + "." + $User.Lastname + "@" + $User.Maildomain	
-    [string]$Username = $User.username
+    [string]$Username = $User.username 
     [string]$Password = $User.password
     [string]$Firstname = $User.firstname
     [string]$Lastname = $User.lastname

@@ -42,11 +42,14 @@ Function Get-onlinecomputers {
     [cmdletBinding()]
     Param
     (
-        [String[]]$Computers = (get-adcomputer -filter * | Select-object -expandProperty dnshostname) 
+        [Paramater(Mandatory=$False,
+        ValueFromPipeline=$true,
+        ValueFromPipelineByPropertyName=$True)]    
+        [String[]]$Computername = (get-adcomputer -filter * | Select-object -expandProperty dnshostname) 
     )
-    Foreach ($Computer in $Computers) {
+    Foreach ($Computer in $Computername) {
         IF (Test-Connection -Computername $Computer -BufferSize 32 -Count 1 -Quiet) {
-            $computer 
+            $computer
         }
     }
 }
@@ -54,11 +57,14 @@ Function Get-onlinecomputers {
 Function Get-onlinecomputersNetPing {
     [cmdletBinding()]
     Param(
-        $Computers = (get-adcomputer -filter * | Select-object -ExpandProperty dnshostname)
+        [Paramater(Mandatory = $False,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $True)] 
+        $Computername = (get-adcomputer -filter * | Select-object -ExpandProperty dnshostname)
     )
     $ping = (New-Object System.Net.NetworkInformation.Ping)
 
-    Foreach ($Computer in $Computers) {
+    Foreach ($Computer in $Computername) {
         if ($ping.Send($Computer) | Where-Object -FilterScript { $_.Status -eq 'Success' }) {
             $computer
         }
