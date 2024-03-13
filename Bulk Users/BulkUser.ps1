@@ -1,8 +1,8 @@
 #Chris Mcghee chrs.mcghee@gmail.com 3-27-2020
 #test Fork
 
-#The Big Branch
-#Try this Branch
+
+
 #Store the data from ADUsers.csv in the $ADUsers array
 TRY {
     $ADUsers = Import-csv D:\Bulkusers\bulk_users1.csv 
