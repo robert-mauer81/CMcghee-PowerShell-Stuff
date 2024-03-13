@@ -1,4 +1,6 @@
 #Chris Mcghee chrs.mcghee@gmail.com 3-27-2020
+
+
 #Store the data from ADUsers.csv in the $ADUsers array
 TRY {
     $ADUsers = Import-csv D:\Bulkus\bulk_users1.csv -ErrorAction Stop
