@@ -107,7 +107,7 @@ $FirstNameLabel.Text = "First Name:"
 $Form.Controls.Add($FirstNameLabel)
         
 #Create Input box for Firstname
-$FirstNameText = New-Object Windows.Forms.TextBox
+$FirstNameText= New-Object Windows.Forms.TextBox
 $FirstNameText.Location = New-Object Drawing.Point(120, 20)
 $FirstNameText.Size = New-Object System.Drawing.Size(200, 20)
 $form.Controls.Add($FirstNameText)
@@ -166,19 +166,62 @@ $PasswordText.Location = New-Object Drawing.Point(120, 180)
 $PasswordText.Size = New-Object System.Drawing.Size(200, 20)
 $form.Controls.Add($PasswordText)
 
+#Create Label for Organizational Unit
+$OULabel = New-Object System.Windows.Forms.Label
+$OULabel.Location = New-Object System.Drawing.Point(10, 220)
+$OULabel.Size = New-Object System.Drawing.Size(150, 20)
+$OULabel.Text = "Organizational Unit"
+$Form.Controls.Add($OULabel)
+
+#Create Drop-down box for Organizational Unit
+$OUListText = New-Object system.Windows.Forms.ComboBox
+$OUListText.Location = New-Object Drawing.Point(170, 220)
+$OUListText.Size = New-Object System.Drawing.Size(150, 20)
+
+# Add the items in the dropdown list
+$oulist = Get-ADOrganizationalUnit -Filter{Name -ne 'Domain Controllers'} | Select-Object -Property Name,DistinguishedName
+$oulist | ForEach-Object {[void] $OUListText.Items.Add($_.Name)}
+# Select the default value
+$OUListText.SelectedIndex = 0
+$Form.Controls.Add($OUListText)
+$Hash = @{}
+
 
 #Activate form ans set focus on it
 $Form.Add_Shown({ $FirstNameText.Select() })
 #Display the form in Windows
 $result = $Form.ShowDialog()
 
-if ($result -eq [System.Windows.Forms.DialogResult]::OK) {
-    $secstr = $PasswordText.Text | ConvertTo-SecureString -AsPlainText -force 
+if ($result -eq [System.Windows.Forms.DialogResult]::OK){
+    IF(Get-ADUser -Filter { SamAccountName -eq $Username }) {
+        #If user does exist, give a warning and keep on going
+        Write-Warning "A user account with username $Username already exist in Active Directory."
+    }
+ELSE
+{ Write-host $OU
+    [string]$Password = $PasswordText.Text | ConvertTo-SecureString -AsPlainText -force 
+    [string]$DisplayName = $FirstNameText.text + " " + $lastnameText.text
+    [string]$UPN = $FirstNameText.text + "." + $lastnameText.text+ "@" + "Adatum.com"
+    [string]$Username = $FirstNameText.text+ "." + $lastnameText.text
+    [string]$Firstname = $FirstNameText.text
+    [string]$Lastname = $lastnameText.text
+    [string]$OU = $hash[0]
+    [string]$email = $UPN
+    [string]$jobtitle = $JobTitleText.text
+    [string]$department = $DepartmentText.text
 
-    $FirstNameText.Text
-   
-    $LastNameText.Text
-   
-    $DepartmentText.Text
-   
-}
+    #New-Aduser -Name:$DisplayName -Samaccountname:$Username -UserPrincipleName:$UPN -GivenName:$Firstname -Surname:$Lastname `
+    #-Enabled:$true -DisplayName:$DisplayName -Path:$oulist.
+<#
+    [string]$Password 
+    [string]$DisplayName
+    [string]$UPN 
+    [string]$Username 
+    [string]$Firstname 
+    [string]$Lastname 
+    [string]$OU
+    [string]$email
+    [string]$jobtitle
+    [string]$department
+#>   
+}}
