@@ -169,23 +169,31 @@ $form.Controls.Add($PasswordText)
 #Create Label for Organizational Unit
 $OULabel = New-Object System.Windows.Forms.Label
 $OULabel.Location = New-Object System.Drawing.Point(10, 220)
-$OULabel.Size = New-Object System.Drawing.Size(150, 20)
+$OULabel.Size = New-Object System.Drawing.Size(110, 20)
 $OULabel.Text = "Organizational Unit"
 $Form.Controls.Add($OULabel)
 
 #Create Drop-down box for Organizational Unit
 $OUListText = New-Object system.Windows.Forms.ComboBox
-$OUListText.Location = New-Object Drawing.Point(170, 220)
-$OUListText.Size = New-Object System.Drawing.Size(150, 20)
+$OUListText.Location = New-Object Drawing.Point(120, 220)
+$OUListText.Size = New-Object System.Drawing.Size(200, 20)
 
-#This seems to work I think you had the proporties twisted 
+# Add the items in the dropdown list
 $oulist = Get-ADOrganizationalUnit -Filter{Name -ne 'Domain Controllers'} | Select-Object -Property Name,DistinguishedName
-$oulist | ForEach-Object {
-    [void] $OUListText.Items.Add($_.DistinguishedName)
-}
+$oulist | ForEach-Object {[void] $OUListText.Items.Add($_.Name)}
 # Select the default value
 $OUListText.SelectedIndex = 0
 $Form.Controls.Add($OUListText)
+$Hash = @{}
+
+#This seems to work I think you had the proporties twisted 
+#$oulist = Get-ADOrganizationalUnit -Filter{Name -ne 'Domain Controllers'} | Select-Object -Property Name,DistinguishedName
+#$oulist | ForEach-Object {
+#    [void] $OUListText.Items.Add($_.DistinguishedName)
+#}
+# Select the default value
+#$OUListText.SelectedIndex = 0
+#$Form.Controls.Add($OUListText)
 
 #Activate form ans set focus on it
 $Form.Add_Shown({ $FirstNameText.Select() })
