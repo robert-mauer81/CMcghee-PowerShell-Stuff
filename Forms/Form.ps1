@@ -178,14 +178,14 @@ $OUListText = New-Object system.Windows.Forms.ComboBox
 $OUListText.Location = New-Object Drawing.Point(170, 220)
 $OUListText.Size = New-Object System.Drawing.Size(150, 20)
 
-# Add the items in the dropdown list
+#This seems to work I think you had the proporties twisted 
 $oulist = Get-ADOrganizationalUnit -Filter{Name -ne 'Domain Controllers'} | Select-Object -Property Name,DistinguishedName
-$oulist | ForEach-Object {[void] $OUListText.Items.Add($_.Name)}
+$oulist | ForEach-Object {
+    [void] $OUListText.Items.Add($_.DistinguishedName)
+}
 # Select the default value
 $OUListText.SelectedIndex = 0
 $Form.Controls.Add($OUListText)
-$Hash = @{}
-
 
 #Activate form ans set focus on it
 $Form.Add_Shown({ $FirstNameText.Select() })
