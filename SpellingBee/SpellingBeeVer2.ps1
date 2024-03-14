@@ -1,7 +1,7 @@
 # Kanban Board created in GitKraken
 
 # Load function "new-speech" for audible
-Import-Module -Name coretools
+Import-Module -Name coretools  #it didn't work I need the coretools Module that was built for it.
 
 # Ask user for input
 new-speech "Hello, what is your name?" 
@@ -13,7 +13,10 @@ New-Speech -text "Spell the following Words Please $name"
 
 #Get-Content -Path .\SampleWords.txt.
 
-$list = Get-Content -Path D:\Deleteme\beewords.txt
+#do you have a file that I could use to create the spelling bee?  could you also create an array with in the script, so that it does not rely on an outside file.  
+#Curious to hear this work I will create an aray instead for $list and test it out.  
+#$list = Get-Content -Path D:\Deleteme\beewords.txt
+$list = @("the","cat","run","good","bad")
 
 #For Each loop
 foreach ($word in $list) {
