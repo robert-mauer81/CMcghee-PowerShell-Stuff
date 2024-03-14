@@ -181,14 +181,9 @@ $OUListText.Size = New-Object System.Drawing.Size(150, 20)
 # Add the items in the dropdown list
 $oulist = Get-ADOrganizationalUnit -Filter { Name -ne 'Domain Controllers' } | Select-Object -Property Name, DistinguishedName
 $oulist | ForEach-Object { [void] $OUListText.Items.Add($_.Name) }
-# Select the default value
 $OUListText.SelectedIndex = 0
 $Form.Controls.Add($OUListText)
 
-$Hash = @{}
-$oulist | Foreach { $hash.Add($_.Name, $_.Distinguishedname) }
-$OUvalue = $OUListText.Text
-$OUInput = $hash[$OUvalue]
 
 #$OUInput.GetType()
 
@@ -199,8 +194,11 @@ $result = $Form.ShowDialog()
 
 
 if ($result -eq [System.Windows.Forms.DialogResult]::OK) {
+    [string]$OUvalue = $OUListText.Text
+    [HashTable]$Hash = @{}
+    $oulist | Foreach { $hash.Add($_.Name, $_.Distinguishedname) }
+    [String]$OUInput = $hash[$OUvalue]
 
- 
     [string]$Password = $PasswordText.Text  
     [string]$DisplayName = $FirstNameText.text + " " + $lastnameText.text
     [string]$UPN = $FirstNameText.text + "." + $lastnameText.text + "@" + "Adatum.com"
@@ -214,6 +212,8 @@ if ($result -eq [System.Windows.Forms.DialogResult]::OK) {
 
 
     New-Aduser -Name:$DisplayName -Samaccountname:$Username -UserPrincipalName:$UPN -GivenName:$Firstname -Surname:$Lastname `
-        -Enabled:$true -DisplayName:$DisplayName -Path:$OU -Title:$jobtitle -AccountPassword:(ConvertTo-SecureString $Password -AsPlainText -force) -ChangePasswordAtLogon:$false -WhatIf
- 
+        -Enabled:$true -DisplayName:$DisplayName -Path:$OU -Title:$jobtitle`
+        -EmailAddress:$email -Department:$department `
+        -AccountPassword:(ConvertTo-SecureString $Password -AsPlainText -force) -ChangePasswordAtLogon:$false -WhatIf
+    #$Hash.Clear()
 }
