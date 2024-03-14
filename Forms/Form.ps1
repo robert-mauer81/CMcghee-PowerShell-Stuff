@@ -107,7 +107,7 @@ $FirstNameLabel.Text = "First Name:"
 $Form.Controls.Add($FirstNameLabel)
         
 #Create Input box for Firstname
-$FirstNameText= New-Object Windows.Forms.TextBox
+$FirstNameText = New-Object Windows.Forms.TextBox
 $FirstNameText.Location = New-Object Drawing.Point(120, 20)
 $FirstNameText.Size = New-Object System.Drawing.Size(200, 20)
 $form.Controls.Add($FirstNameText)
@@ -179,49 +179,41 @@ $OUListText.Location = New-Object Drawing.Point(170, 220)
 $OUListText.Size = New-Object System.Drawing.Size(150, 20)
 
 # Add the items in the dropdown list
-$oulist = Get-ADOrganizationalUnit -Filter{Name -ne 'Domain Controllers'} | Select-Object -Property Name,DistinguishedName
-$oulist | ForEach-Object {[void] $OUListText.Items.Add($_.Name)}
+$oulist = Get-ADOrganizationalUnit -Filter { Name -ne 'Domain Controllers' } | Select-Object -Property Name, DistinguishedName
+$oulist | ForEach-Object { [void] $OUListText.Items.Add($_.Name) }
 # Select the default value
 $OUListText.SelectedIndex = 0
 $Form.Controls.Add($OUListText)
-$Hash = @{}
 
+$Hash = @{}
+$oulist | Foreach { $hash.Add($_.Name, $_.Distinguishedname) }
+$OUvalue = $OUListText.Text
+$OUInput = $hash[$OUvalue]
+
+#$OUInput.GetType()
 
 #Activate form ans set focus on it
 $Form.Add_Shown({ $FirstNameText.Select() })
 #Display the form in Windows
 $result = $Form.ShowDialog()
 
-if ($result -eq [System.Windows.Forms.DialogResult]::OK){
-    IF(Get-ADUser -Filter { SamAccountName -eq $Username }) {
-        #If user does exist, give a warning and keep on going
-        Write-Warning "A user account with username $Username already exist in Active Directory."
-    }
-ELSE
-{ Write-host $OU
-    [string]$Password = $PasswordText.Text | ConvertTo-SecureString -AsPlainText -force 
+
+if ($result -eq [System.Windows.Forms.DialogResult]::OK) {
+
+ 
+    [string]$Password = $PasswordText.Text  
     [string]$DisplayName = $FirstNameText.text + " " + $lastnameText.text
-    [string]$UPN = $FirstNameText.text + "." + $lastnameText.text+ "@" + "Adatum.com"
-    [string]$Username = $FirstNameText.text+ "." + $lastnameText.text
+    [string]$UPN = $FirstNameText.text + "." + $lastnameText.text + "@" + "Adatum.com"
+    [string]$Username = $FirstNameText.text + "." + $lastnameText.text
     [string]$Firstname = $FirstNameText.text
     [string]$Lastname = $lastnameText.text
-    [string]$OU = $hash[0]
+    [string]$OU = $OUInput
     [string]$email = $UPN
     [string]$jobtitle = $JobTitleText.text
     [string]$department = $DepartmentText.text
 
-    #New-Aduser -Name:$DisplayName -Samaccountname:$Username -UserPrincipleName:$UPN -GivenName:$Firstname -Surname:$Lastname `
-    #-Enabled:$true -DisplayName:$DisplayName -Path:$oulist.
-<#
-    [string]$Password 
-    [string]$DisplayName
-    [string]$UPN 
-    [string]$Username 
-    [string]$Firstname 
-    [string]$Lastname 
-    [string]$OU
-    [string]$email
-    [string]$jobtitle
-    [string]$department
-#>   
-}}
+
+    New-Aduser -Name:$DisplayName -Samaccountname:$Username -UserPrincipalName:$UPN -GivenName:$Firstname -Surname:$Lastname `
+        -Enabled:$true -DisplayName:$DisplayName -Path:$OU -Title:$jobtitle -AccountPassword:(ConvertTo-SecureString $Password -AsPlainText -force) -ChangePasswordAtLogon:$false -WhatIf
+ 
+}
