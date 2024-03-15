@@ -11,7 +11,7 @@ $Server = Read-Host
 Get-CimInstance -Namespace Root\cimV2 -Class Win32_NetworkLoginProfile -ComputerName $Server | 
 
 #Sort decending and pick the top one off the sort
-Sort -Property LastLogon -Descending  | Select-Object -Property * -First 2 | 
+Sort-Object -Property LastLogon -Descending  | Select-Object -Property * -First 2 | 
 
 #match 14 digits for datetime from LastLogon
 Where-Object { $_.LastLogon -match "(?:\d{14})" } |
