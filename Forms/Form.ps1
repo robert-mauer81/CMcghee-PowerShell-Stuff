@@ -218,7 +218,7 @@ Function New-ADUserForm {
         [string]$jobtitle = $JobTitleText.text
         [string]$department = $DepartmentText.text
 
-
+        IF (Validate-Password -Password $Password) {
         New-Aduser -Name:$DisplayName -Samaccountname:$Username `
         -UserPrincipalName:$UPN -GivenName:$Firstname -Surname:$Lastname `
         -EmailAddress:$email -Department:$department `
@@ -227,4 +227,5 @@ Function New-ADUserForm {
         
         $Hash.Clear()
     }
+}
 }
