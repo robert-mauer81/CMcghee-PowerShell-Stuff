@@ -120,6 +120,8 @@ Function New-ADUserForm {
     $OUListText.SelectedIndex = 0
     $Form.Controls.Add($OUListText)
 
+    #$OUInput.GetType()
+
     #Activate form ans set focus on it
     $Form.Add_Shown({ $FirstNameText.Select() })
     #Display the form in Windows
