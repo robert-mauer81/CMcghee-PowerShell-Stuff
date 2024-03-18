@@ -2,9 +2,8 @@
 #Built as a function - Contributions from MSSA students
 #NOTHER ONE to Look At
 
-
 Function New-ADUserForm {
-    #
+    
     # Load the Windows Forms assembly
     Add-Type -AssemblyName System.Windows.Forms
     Add-Type -AssemblyName System.Drawing
@@ -103,17 +102,17 @@ Function New-ADUserForm {
     $PasswordText.Size = New-Object System.Drawing.Size(200, 20)
     $form.Controls.Add($PasswordText)
 
-#Create Label for Organizational Unit
-$OULabel = New-Object System.Windows.Forms.Label
-$OULabel.Location = New-Object System.Drawing.Point(10, 220)
-$OULabel.Size = New-Object System.Drawing.Size(150, 20)
-$OULabel.Text = "Organizational Unit"
-$Form.Controls.Add($OULabel)
+    #Create Label for Organizational Unit
+    $OULabel = New-Object System.Windows.Forms.Label
+    $OULabel.Location = New-Object System.Drawing.Point(10, 220)
+    $OULabel.Size = New-Object System.Drawing.Size(110, 20)
+    $OULabel.Text = "Organizational Unit"
+    $Form.Controls.Add($OULabel)
 
-#Create Drop-down box for Organizational Unit
-$OUListText = New-Object system.Windows.Forms.ComboBox
-$OUListText.Location = New-Object Drawing.Point(170, 220)
-$OUListText.Size = New-Object System.Drawing.Size(150, 20)
+    #Create Drop-down box for Organizational Unit
+    $OUListText = New-Object system.Windows.Forms.ComboBox
+    $OUListText.Location = New-Object Drawing.Point(120, 220)
+    $OUListText.Size = New-Object System.Drawing.Size(200, 20)
 
     # Add the items in the dropdown list
     $oulist = Get-ADOrganizationalUnit -Filter { Name -ne 'Domain Controllers' } | Select-Object -Property Name, DistinguishedName
