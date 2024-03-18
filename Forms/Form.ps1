@@ -9,7 +9,6 @@ Function New-ADUserForm {
     Add-Type -AssemblyName System.Windows.Forms
     Add-Type -AssemblyName System.Drawing
 
-
     # Create Form
 
     $form = New-Object Windows.Forms.Form
@@ -64,7 +63,6 @@ Function New-ADUserForm {
     $LastNameText.Size = New-Object System.Drawing.Size(200, 20)
     $form.Controls.Add($LastNameText)
 
-
     #Create Label for Department
     $DepartmentLabel = New-Object System.Windows.Forms.Label
     $DepartmentLabel.Location = New-Object System.Drawing.Point(10, 100)
@@ -105,8 +103,6 @@ Function New-ADUserForm {
     $PasswordText.Size = New-Object System.Drawing.Size(200, 20)
     $form.Controls.Add($PasswordText)
 
-
-
 #Create Label for Organizational Unit
 $OULabel = New-Object System.Windows.Forms.Label
 $OULabel.Location = New-Object System.Drawing.Point(10, 220)
@@ -125,12 +121,10 @@ $OUListText.Size = New-Object System.Drawing.Size(150, 20)
     $OUListText.SelectedIndex = 0
     $Form.Controls.Add($OUListText)
 
-
     #Activate form ans set focus on it
     $Form.Add_Shown({ $FirstNameText.Select() })
     #Display the form in Windows
     $result = $Form.ShowDialog()
-
 
     if ($result -eq [System.Windows.Forms.DialogResult]::OK) {
 
