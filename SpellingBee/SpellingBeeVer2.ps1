@@ -10,9 +10,10 @@ $name = Read-Host  "type your name here"
 Write-Output "Nice to meet you $name, let's spell some words together!"
 New-speech "nice to meet you $name, let'spell some words together!"
 
-#Curious to hear this work I will create an aray instead for $list and test it out. It works with the array 
+#Curious to hear this work, I will create an aray instead for $list and test it out. It works with the array 
 #$list = Get-Content -Path D:\Deleteme\beewords.txt
-$list = @("the","cat","run","good","bad")
+$list = @("the","cat","run","good","bad","Microsoft")
+#"the" didn't work well with the speach emulator
 
 #For Each loop
 foreach ($word in $list) {
