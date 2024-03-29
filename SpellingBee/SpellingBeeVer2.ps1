@@ -1,7 +1,7 @@
 # Kanban Board created in GitKrakenfollow
 # edits added by Robert-Mauer81 
 
-# Load function "new-speech" for audible
+# Load function "new-speech" for audible Core tools can be found https://github.com/robert-mauer81/CMcghee-PowerShell-Stuff/blob/main/CoreTools.psm1
 Import-Module -Name CoreTools -force
 
 # Ask user for input
