@@ -27,6 +27,6 @@ foreach ($word in $list) {
          ELSE{Write-Host "Try Again!"
          New-Speech "Try Again"}
 } 
-#worked it out for the array, more work can be done to make it run randomely, make multipule difficulty levels, or to make it, one incorrect answer prompt the user again. 
+#worked it out for the array, more work can be done to make it run randomely, make multipule difficulty levels, or to make incorrect answer prompt the user again. 
 #Replace the above IF...ELSE logic with a DO...UNTIL Loop I think may work to prompt until the $userinput is spelled correctly
 #lesson 2 Module 8
