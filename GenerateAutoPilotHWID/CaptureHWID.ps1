@@ -1,3 +1,4 @@
+#AutoPilot
 md c:\HWID
 Set-Location c:\HWID
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Unrestricted -Force
