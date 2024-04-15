@@ -2,4 +2,4 @@
 
 Write-Host "Hello World"
 
-Get-eventlog -logname system
+Get-eventlog -logname 'system'
