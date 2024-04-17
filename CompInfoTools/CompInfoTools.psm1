@@ -20,7 +20,7 @@ Function Get-Compinfo {
             $Properties= [ordered]@{'Computername' = $Computer;
                 'OS'                                = $os.Caption;
                 'LastBootUpTime'                        = $os.LastBootUpTime;
-                'UpTimeHours'                       =  "{0:N2}" -f (New-TimeSpan -Start $os.LastBootUpTime -End (Get-Date)).TotalHours ;
+                'UpTimeHours'                       =  "{0:N2}" -f $uptime ;
                 'C:_GB_Free'                        = ($cdrive.FreeSpace / 1GB -as [int])
             }
 
