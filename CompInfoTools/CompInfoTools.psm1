@@ -8,7 +8,7 @@ Function Get-Compinfo {
     PROCESS {
         FOREACH ($Computer in $DnsHost) {
         
-
+ 
             $os = Get-CimInstance -ClassName Win32_operatingsystem -ComputerName $Computer -ErrorAction SilentlyContinue
 
             #$now = (Get-Date)
@@ -17,10 +17,10 @@ Function Get-Compinfo {
         
             $cdrive = Get-WMIObject win32_logicaldisk -filter "DeviceID='c:'" -computername $Computer -ErrorAction SilentlyContinue
 
-            $Properties = [ordered]@{'Computername' = $Computer;
+            $Properties= [ordered]@{'Computername' = $Computer;
                 'OS'                                = $os.Caption;
-                'LastBootUp'                        = $os.LastBootUpTime;
-                'UpTimeHours'                       = $uptime;
+                'LastBootUpTime'                        = $os.LastBootUpTime;
+                'UpTimeHours'                       =  "{0:N2}" -f (New-TimeSpan -Start $os.LastBootUpTime -End (Get-Date)).TotalHours ;
                 'C:_GB_Free'                        = ($cdrive.FreeSpace / 1GB -as [int])
             }
 
@@ -31,7 +31,7 @@ Function Get-Compinfo {
 
             #$FormatEnumerationLimit = -1
             Write-Output $obj 
-            $obj | Select-Object -Property computername, os, LastBootUp, UptimeHours, C:_GB_Free | Export-Csv -Path C:\Test.csv -NoTypeInformation -Append
+            $obj | Select-Object -Property computername, os, LastBootUpTime, UptimeHours, C:_GB_Free | Export-Csv -Path C:\Test.csv -NoTypeInformation -Append
         }
 
     }
