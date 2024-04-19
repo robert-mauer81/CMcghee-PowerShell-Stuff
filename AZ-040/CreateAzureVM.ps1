@@ -1,7 +1,11 @@
+
+
+Connect-AzAccount -TenantId fa74fbb4-a1d3-453f-a834-6431526683d1
+
 $cred = Get-Credential
-[string]$MyVM = TestVM1
-[string]$RGName = VMRG0829
-[string]$Location = EastUs
+[string]$MyVM = 'TestVM1'
+[string]$RGName = 'WebServices'
+[string]$Location = 'EastUs'
 
 #Create Resource Group for VM
 New-AzResourceGroup -ResourceGroupName $RGName -Location $location
