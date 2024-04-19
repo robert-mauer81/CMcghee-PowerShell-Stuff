@@ -57,7 +57,7 @@ Function Get-onlinecomputers {
 Function Get-onlinecomputersNetPing {
     [cmdletBinding()]
     Param(
-        [Paramater(Mandatory = $False,
+        [Parameter(Mandatory = $False,
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $True)] 
         $Computername = (get-adcomputer -filter * | Select-object -ExpandProperty dnshostname)
