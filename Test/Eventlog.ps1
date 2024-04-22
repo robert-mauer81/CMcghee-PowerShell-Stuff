@@ -1,1 +1,0 @@
-get-eventlog -LogName system -Newest 4 -Verbose

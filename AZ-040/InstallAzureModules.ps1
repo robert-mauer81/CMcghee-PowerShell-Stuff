@@ -1,7 +1,5 @@
 $PSVersionTable.PSVersion
-Set-Executionpolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-Install-Module -Name PowerShellGet -Force
-install-module -Name AZ -force
+
 
 #similiar
 Install-Module MSOnline -force
