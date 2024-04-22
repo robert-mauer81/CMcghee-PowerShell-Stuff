@@ -2,6 +2,22 @@
 #Built as a function - Contributions from MSSA students
 #NOTHER ONE to Look At
 
+#Function to ensure Password used is valid per predefined 
+
+function Validate-Password($Password) {
+    $minLength = 8
+    $hasUpper = $Password -cmatch '[A-Z]'
+    $hasLower = $Password -cmatch '[a-z]'
+    $hasNumber = $Password -cmatch '[0-9]'
+    $hasSpecial = $Password -cmatch '[^\w]'
+
+    if ($Password.Length -ge $minLength -and $hasUpper -and $hasLower -and $hasNumber -and $hasSpecial) {
+        return $true
+    } else {
+        return $false
+    }
+}
+
 Function New-ADUserForm {
     
     # Load the Windows Forms assembly
